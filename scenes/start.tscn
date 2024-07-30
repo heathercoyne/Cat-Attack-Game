@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0wird0furly"]
+
+[ext_resource type="Texture2D" uid="uid://jujxwxth7sjr" path="res://assets/start_background.png" id="1_13diy"]
+[ext_resource type="Script" path="res://scripts/start.gd" id="1_hji70"]
+[ext_resource type="Texture2D" uid="uid://cmuap75h38qbt" path="res://assets/start.png" id="2_6bvyn"]
+[ext_resource type="Texture2D" uid="uid://dbm5381p64w1v" path="res://assets/quit.png" id="3_45vvb"]
+[ext_resource type="Texture2D" uid="uid://ehbwentff5qt" path="res://assets/gameover.png" id="3_jbhnk"]
+[ext_resource type="AudioStream" uid="uid://wph6m46rkxhl" path="res://assets/Start.wav" id="6_bsm47"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4lm4"]
+font_size = 24
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgul2"]
+font_size = 36
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hji70")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_13diy")
+
+[node name="Quit" type="Button" parent="Background"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 520.0
+offset_right = 1048.0
+offset_bottom = 628.0
+icon = ExtResource("3_45vvb")
+
+[node name="Start" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = -200.0
+offset_right = 608.0
+offset_bottom = -92.0
+grow_vertical = 0
+icon = ExtResource("2_6bvyn")
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -308.5
+offset_top = 80.0
+offset_right = 308.5
+offset_bottom = 466.0
+grow_horizontal = 2
+texture = ExtResource("3_jbhnk")
+
+[node name="HowTo" type="Label" parent="Background/TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -330.0
+offset_right = 202.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Each player has 10 lives
+          Get hit by a laser :  -1 life
+          Get hit by a mouse: -3 lives
+Gain the most points before 
+a player dies to win!
+          Kill a mouse: +100 points
+          Get hit by a mouse: -50 points
+          Destore a laser: +10 points
+          Get hit by a laser: -5 points
+"
+label_settings = SubResource("LabelSettings_g4lm4")
+
+[node name="Intructions" type="Label" parent="Background/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -143.0
+offset_right = 143.0
+offset_bottom = 67.0
+grow_horizontal = 2
+text = "How to Play:"
+label_settings = SubResource("LabelSettings_bgul2")
+
+[node name="TextEdit" type="TextEdit" parent="Background"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 205.0
+offset_right = 248.0
+offset_bottom = 417.0
+text = "Player 1:
+Move with WASD 
+Shoot with SPACE
+
+Player 2:
+Move with arrow keys
+Shoot with ENTER"
+
+[node name="StartMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_bsm47")
+
+[connection signal="pressed" from="Background/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Background/Start" to="." method="_on_start_pressed"]

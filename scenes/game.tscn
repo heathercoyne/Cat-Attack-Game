@@ -1,0 +1,73 @@
+[gd_scene load_steps=14 format=3 uid="uid://bv8kbc86xdv78"]
+
+[ext_resource type="Texture2D" uid="uid://be1crp86t77cp" path="res://assets/space.png" id="1_7umv6"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_silqn"]
+[ext_resource type="PackedScene" uid="uid://o3tcht0ui5gp" path="res://scenes/hud.tscn" id="2_7nppj"]
+[ext_resource type="PackedScene" uid="uid://b4pd7gi24ef70" path="res://scenes/player_one.tscn" id="2_qmnk3"]
+[ext_resource type="Script" path="res://scripts/player_one.gd" id="3_643i7"]
+[ext_resource type="Texture2D" uid="uid://fgk2px5lt80b" path="res://assets/player2.png" id="3_tg8a1"]
+[ext_resource type="Script" path="res://scripts/player_two.gd" id="4_0psms"]
+[ext_resource type="PackedScene" uid="uid://cxdi5xg8i1esp" path="res://scenes/enemy_spawner.tscn" id="6_lgpqv"]
+[ext_resource type="AudioStream" uid="uid://dqnun24f8wtbo" path="res://assets/Mouse.wav" id="9_2f6we"]
+[ext_resource type="AudioStream" uid="uid://4h01xe6f0pki" path="res://assets/background.wav" id="9_3afu5"]
+[ext_resource type="AudioStream" uid="uid://bjhgg4vm5ov73" path="res://assets/Rocket.wav" id="11_lfcex"]
+[ext_resource type="AudioStream" uid="uid://cq1vw1gshkfot" path="res://assets/Meow.wav" id="12_5o7j5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8thrt"]
+size = Vector2(174, 795)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_silqn")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_7nppj")]
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1303.0
+offset_bottom = 759.0
+texture = ExtResource("1_7umv6")
+stretch_mode = 1
+
+[node name="PlayerOne" parent="." instance=ExtResource("2_qmnk3")]
+position = Vector2(104, 236)
+script = ExtResource("3_643i7")
+
+[node name="PlayerTwo" parent="." instance=ExtResource("2_qmnk3")]
+position = Vector2(99, 578)
+script = ExtResource("4_0psms")
+
+[node name="Sprite2D" parent="PlayerTwo" index="1"]
+texture = ExtResource("3_tg8a1")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("6_lgpqv")]
+
+[node name="UselessMouseDie" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UselessMouseDie"]
+position = Vector2(-289, 387.5)
+shape = SubResource("RectangleShape2D_8thrt")
+
+[node name="Background2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_3afu5")
+
+[node name="MouseSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_2f6we")
+
+[node name="RocketSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_lfcex")
+
+[node name="CatSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_5o7j5")
+
+[connection signal="took_damage" from="PlayerOne" to="." method="_on_player_one_took_damage"]
+[connection signal="took_damage" from="PlayerTwo" to="." method="_on_player_two_took_damage"]
+[connection signal="mouse_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_mouse_spawned"]
+[connection signal="path_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_path_spawned"]
+[connection signal="area_entered" from="UselessMouseDie" to="." method="_on_useless_mouse_die_area_entered"]
+[connection signal="finished" from="Background2" to="." method="_on_background_2_finished"]
+
+[editable path="PlayerOne"]
+[editable path="PlayerTwo"]

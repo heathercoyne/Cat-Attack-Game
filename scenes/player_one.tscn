@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4pd7gi24ef70"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_x5bt1"]
+[ext_resource type="Texture2D" uid="uid://dsoxluwc12l5g" path="res://assets/player1.png" id="1_yfowj"]
+[ext_resource type="AudioStream" uid="uid://cwfecaxx7e5hr" path="res://assets/shoot.wav" id="3_i2c1r"]
+
+[sub_resource type="Gradient" id="Gradient_hs3ud"]
+offsets = PackedFloat32Array(0, 0.262295, 1)
+colors = PackedColorArray(0.862745, 0.87451, 0, 0.027451, 0.898039, 0.498039, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p5i8e"]
+gradient = SubResource("Gradient_hs3ud")
+
+[sub_resource type="Curve" id="Curve_mwhdm"]
+_data = [Vector2(0, 0.428571), 0.0, 0.0, 0, 0, Vector2(0.28, 0.582418), 0.0, 0.0, 0, 0, Vector2(0.506667, 0.637363), 0.0, 0.0, 0, 0, Vector2(0.82, 0.769231), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_cdn8o"]
+curve = SubResource("Curve_mwhdm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2gova"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 40, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 30.0
+initial_velocity_min = -200.0
+initial_velocity_max = -200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_cdn8o")
+color_ramp = SubResource("GradientTexture1D_p5i8e")
+
+[node name="PlayerOne" type="CharacterBody2D"]
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_x5bt1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-48, -2)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_2gova")
+lifetime = 0.3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yfowj")
+
+[node name="RocketContainer" type="Node" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-49, -40, -3, -21, 26, -20, 52, -1, 28, 19, -2, 20, -47, 40, -49, 16, -31, 8, -31, -8, -48, -16)
+
+[node name="RocketSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_i2c1r")

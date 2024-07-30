@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://76oqcodrifyh"]
+
+[ext_resource type="PackedScene" uid="uid://qnorv61ogusk" path="res://scenes/mouse.tscn" id="1_021m4"]
+
+[sub_resource type="Curve2D" id="Curve2D_h3cad"]
+_data = {
+"points": PackedVector2Array(-462.394, 381.301, 462.394, -381.301, -390.991, 401.258, -186.329, 341.228, 186.329, -341.228, 371.496, 329.923, -177.829, 42.2206, 177.829, -42.2206, 1005.1, 331.038, -613.403, -525.726, 613.403, 525.726, 2017.77, 393.455)
+}
+point_count = 4
+
+[sub_resource type="GDScript" id="GDScript_xm1oe"]
+script/source = "extends Path2D
+
+@onready var path = $PathFollow2D
+@onready var mouse = $PathFollow2D/Mouse
+var path_num
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	path.set_progress_ratio(1)
+
+func _process(delta):
+	path.progress_ratio -= 0.25*delta
+	if path.progress_ratio <= 0:
+		queue_free()
+"
+
+[node name="MousePath2" type="Path2D"]
+position = Vector2(137, 24)
+scale = Vector2(0.923295, 0.897179)
+curve = SubResource("Curve2D_h3cad")
+script = SubResource("GDScript_xm1oe")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(1942.9, 332.407)
+rotation = 0.657624
+progress = 2639.29
+loop = false
+
+[node name="Mouse" parent="PathFollow2D" instance=ExtResource("1_021m4")]
+speed = 0

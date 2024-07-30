@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://o3tcht0ui5gp"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_xecyi"]
+[ext_resource type="Texture2D" uid="uid://cm0plon7et23p" path="res://assets/lives1.png" id="2_wtib1"]
+[ext_resource type="Texture2D" uid="uid://bq6qsw1p7ngnv" path="res://assets/lives2.png" id="3_nf43e"]
+
+[sub_resource type="FontVariation" id="FontVariation_p0sg3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jgvi8"]
+font = SubResource("FontVariation_p0sg3")
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+outline_size = 12
+shadow_size = 25
+shadow_color = Color(0.176419, 0.176419, 0.176419, 0.686275)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ae6r2"]
+font_size = 36
+font_color = Color(0.654902, 0.929412, 1, 1)
+outline_size = 10
+outline_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_15i4r"]
+line_spacing = 36.0
+font_size = 36
+font_color = Color(0.827451, 0.654902, 1, 1)
+outline_size = 10
+outline_color = Color(0.00184107, 0.00184107, 0.00184107, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xecyi")
+
+[node name="Score1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 27.0
+offset_right = 503.0
+offset_bottom = 94.0
+text = "Player 1 | Score: 999"
+label_settings = SubResource("LabelSettings_jgvi8")
+
+[node name="Score2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 782.0
+offset_top = 31.0
+offset_right = 1251.0
+offset_bottom = 98.0
+text = "Player 2 | Score: 999"
+label_settings = SubResource("LabelSettings_jgvi8")
+
+[node name="Lives1" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 103.0
+offset_right = 172.0
+offset_bottom = 194.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_wtib1")
+
+[node name="Lives2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 803.0
+offset_top = 102.0
+offset_right = 923.0
+offset_bottom = 193.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("3_nf43e")
+
+[node name="Lives1Left" type="Label" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 103.0
+offset_right = 186.0
+offset_bottom = 153.0
+text = ": 10"
+label_settings = SubResource("LabelSettings_ae6r2")
+
+[node name="Lives2Left" type="Label" parent="."]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 103.0
+offset_right = 939.0
+offset_bottom = 153.0
+text = ": 10"
+label_settings = SubResource("LabelSettings_15i4r")

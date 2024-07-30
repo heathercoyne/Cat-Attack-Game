@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://qnorv61ogusk"]
+
+[ext_resource type="Texture2D" uid="uid://da02m1uujik85" path="res://assets/mouse.png" id="1_r3yal"]
+[ext_resource type="Script" path="res://scripts/mouse.gd" id="1_sor5b"]
+[ext_resource type="AudioStream" uid="uid://bpm7y1xfypk76" path="res://assets/mouse_shoot.wav" id="3_uowxt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7jh58"]
+radius = 25.0
+height = 102.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh573"]
+
+[node name="Mouse" type="Area2D"]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_sor5b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r3yal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_7jh58")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(12, -29)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_kh573")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(13, 29)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_kh573")
+
+[node name="MouseRocketContainer" type="Node" parent="."]
+
+[node name="MouseShoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_uowxt")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

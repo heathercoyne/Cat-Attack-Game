@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4wox7lg3tlxx"]
+
+[ext_resource type="PackedScene" uid="uid://qnorv61ogusk" path="res://scenes/mouse.tscn" id="1_42cie"]
+[ext_resource type="Script" path="res://scripts/mouse_path.gd" id="1_xpsa1"]
+
+[sub_resource type="Curve2D" id="Curve2D_h3cad"]
+_data = {
+"points": PackedVector2Array(-462.394, 381.301, 462.394, -381.301, -238, 628, -186.329, 341.228, 186.329, -341.228, 318.425, 128.18, 6.1835, 231.589, -6.1835, -231.589, 955.274, 535.01, -613.403, -525.726, 613.403, 525.726, 1672.27, 818.12)
+}
+point_count = 4
+
+[node name="MousePath2" type="Path2D"]
+position = Vector2(137, 24)
+scale = Vector2(0.923295, 0.897179)
+curve = SubResource("Curve2D_h3cad")
+script = ExtResource("1_xpsa1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(1672.27, 818.12)
+rotation = 0.708581
+progress = 2659.6
+loop = false
+
+[node name="Mouse" parent="PathFollow2D" instance=ExtResource("1_42cie")]
+speed = 0
