@@ -27,7 +27,6 @@ Steps to play:
 2. Extract the zip file
 3. Run **CatAttack.exe**
 
-No installation is required.
 
 ---
 
